@@ -3,8 +3,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import Card from '../Card';
-import menImg1 from '../Images/men/1.jpg'; // Update with your image paths
-import menImg2 from '../Images/men/4.jpg'; // Update with your image paths
 import axios from 'axios';
 import { UserSearch } from "../context/userContext";
 import Loading from '../Loading';
@@ -55,8 +53,8 @@ const MenCards = () => {
     setHoveredIndex(index);
   };
 
-  if(!mensData)
-      return <Loading/>
+  if(!mensData.length)
+      return  <><Loading/></>
     else
     {
 
