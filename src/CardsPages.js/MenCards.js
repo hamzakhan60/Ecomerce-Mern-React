@@ -1,20 +1,21 @@
 // MenCards.js
-import React, { useState, useEffect,useContext } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import Card from '../Card';
 import menImg1 from '../Images/men/1.jpg'; // Update with your image paths
 import menImg2 from '../Images/men/4.jpg'; // Update with your image paths
 import axios from 'axios';
-import {UserSearch} from "../context/userContext";
+import { UserSearch } from "../context/userContext";
+import Loading from '../Loading';
 
 
 const MenCards = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [mensData, setMensData] = useState([]);
-  const {userSearch}=useContext(UserSearch);
-  const [products,setProducts]=useState([]);
+  const { userSearch } = useContext(UserSearch);
+  const [products, setProducts] = useState([]);
   console.log(process.env.REACT_APP_base_Url);
   const url = `${process.env.REACT_APP_base_Url}/collection/ForMen`;
   useEffect(() => {
@@ -26,13 +27,12 @@ const MenCards = () => {
     }
     data();
   }, []);
-  useEffect(()=>{ 
-    if(userSearch)
-    {
+  useEffect(() => {
+    if (userSearch) {
       const handleSearch = () => {
         const filtered = products.filter((product) => {
           const lowerProductName = product.ProductName.toLowerCase();
-          const lowerSubCategory =( product.clothId && product.clothId.SubCategory.toLowerCase()) || ( product.fragranceId && product.fragranceId.SubCategory.toLowerCase());
+          const lowerSubCategory = (product.clothId && product.clothId.SubCategory.toLowerCase()) || (product.fragranceId && product.fragranceId.SubCategory.toLowerCase());
           return (
             lowerProductName.includes(userSearch.toLowerCase()) ||
             lowerSubCategory.includes(userSearch.toLowerCase())
@@ -44,18 +44,21 @@ const MenCards = () => {
     }
     else
       setMensData(products);
-  },[userSearch])
+  }, [userSearch])
 
 
 
 
- 
+
 
   const handleImageChange = (index) => {
     setHoveredIndex(index);
   };
 
-
+  if(!mensData)
+      return <Loading/>
+    else
+    {
 
   return (
     <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -64,8 +67,8 @@ const MenCards = () => {
         const clothItem = card.clothId;
         const fragranceItem = card.fragranceId;
         const imageSrc = (clothItem && clothItem.imgUrl) || (fragranceItem && fragranceItem.imgUrl);
-        const cutPrice= card.Price+500;
-       
+        const cutPrice = card.Price + 500;
+
         const category = clothItem ? clothItem.StitchType : (fragranceItem ? fragranceItem.family : "N/A");
 
 
@@ -79,12 +82,12 @@ const MenCards = () => {
                 cutPrice={cutPrice}
                 originalPrice={card.Price}
                 discount={20}
-            
+
               />
             </Link>
             <div
               className="absolute top-0 right-0 mt-2 mr-2 cursor-pointer"
-          
+
             >
               <AiOutlineHeart
                 className="text-red-500 "
@@ -96,7 +99,7 @@ const MenCards = () => {
 
       })}
     </div>
-  );
+  );}
 };
 
 export default MenCards;
