@@ -40,6 +40,7 @@ const AccountVerification = () => {
       email: email,
       password: password,
     };
+    console.log(queryParams);
 
     axios.get(url, { params: queryParams })
       .then((response) => {
