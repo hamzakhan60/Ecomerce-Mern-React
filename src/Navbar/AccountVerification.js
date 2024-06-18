@@ -34,8 +34,8 @@ const AccountVerification = () => {
       alert('Please enter both email and password.');
       return;
     }
-
     const url = `${process.env.REACT_APP_base_Url}/login`;
+    console.log("API URL:", url);
     const queryParams = {
       email: email,
       password: password,
