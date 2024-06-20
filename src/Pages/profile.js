@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { UserLoginContext } from './context/userLoginContext';
-import axios from 'axios';
-import Loading from './Loading';
+import { UserLoginContext } from '../context/userLoginContext';
+import Loading from '../components/Loading';
 import { useNavigate } from 'react-router-dom';
+import { userApi } from '../constants/apiConstants';
+import { get, put } from '../helper/apiHelper';
 
 const Profile = () => {
     const [userData, setUserData] = useState(null);
@@ -20,9 +21,7 @@ const Profile = () => {
             }
 
             try {
-                const response = await axios.get(`${process.env.REACT_APP_base_Url}/user`, {
-                    params: userLoginCredential,
-                });
+                const response = await get(userApi, {params:userLoginCredential});
                 setUserData(response.data);
             } catch (err) {
                 if (err.response) {
@@ -43,7 +42,7 @@ const Profile = () => {
 
     const handleEditClick = () => {
         if (isEditing) {
-            axios.put(`${process.env.REACT_APP_base_Url}/user`, userData, { params: userLoginCredential })
+            put(userApi, userData, { params: userLoginCredential })
                 .then((response) => {
                     alert("Updated successfully!");
                     setUserData(response.data);

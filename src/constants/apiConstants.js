@@ -1,0 +1,13 @@
+export const REACT_APP_base_Url=process.env.REACT_APP_base_Url
+export const loginApi=`/login`;
+export const mensCardApi=`/collection/ForMen`;
+export const womenCardApi=`/collection/ForWomen`;
+export const userApi= `/user`;
+export const ordersApi= `/order`;
+export const adminCustomersApi=`/admin/customers`;
+export const detailPageApi=`/product`;
+export const cartApi=`/cart`;
+export const adminOrdersApi=`/admin/orders`;
+export const adminProductApi=`/admin/products`;
+export const adminHomeApi=`/admin/home`;
+export const userSignUpApi=`/signUp`

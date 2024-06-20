@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { UserLoginContext } from "./context/userLoginContext";
-import { UpdateCartContext } from "./context/updatedCartContext";
+import { UserLoginContext } from "../context/userLoginContext";
+import { UpdateCartContext } from "../context/updatedCartContext";
+import { detailPageApi,cartApi } from '../constants/apiConstants';
+import {post,get} from '../helper/apiHelper';
 
 const DetailPage = () => {
   const { _id } = useParams();
@@ -15,14 +16,15 @@ const DetailPage = () => {
   const [card, setCard] = useState(null);
   const { userLoginCredential } = useContext(UserLoginContext);
   const { updateCart, setUpdateCart } = useContext(UpdateCartContext);
+  
 
-  const url = `${process.env.REACT_APP_base_Url}/product/${_id}`;
-  console.log("updateCart" + updateCart);
+   const url = `${detailPageApi}/${_id}`;
+  // console.log("updateCart" + updateCart);
 
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const response = await axios.get(url);
+        const response = await get(url);
         setProductData(response.data);
       } catch (error) {
         console.error('Error fetching product data:', error);
@@ -30,7 +32,7 @@ const DetailPage = () => {
     };
 
     getProduct();
-  }, [_id, url]);
+  }, [_id, detailPageApi]);
   console.log(productData);
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const DetailPage = () => {
           color: selectedColor,
         };
 
-        axios.post(`${process.env.REACT_APP_base_Url}/cart`, body, {
+        post(cartApi, body, {
           params: userLoginCredential,
         })
           .then((response) => {

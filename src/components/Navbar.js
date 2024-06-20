@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import NavbarLogo from './NavbarLogo.png';
+import NavbarLogo from '../Images/NavbarLogo.png';
 import { AiOutlineSearch, AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai';
-import AccountVerification from './AccountVerification';
+import AccountVerification from '../Pages/AccountVerification';
 import AddtoFavorite from './AddtoFavorite';
 import { UserSearch } from '../context/userContext';
-import CartSlider from '../cartSlider'; // Import CartSlider
+import CartSlider from '../Pages/cartSlider'; // Import CartSlider
 
 const Navbar = () => {
   const [showAccountVerification, setShowAccountVerification] = useState(false);

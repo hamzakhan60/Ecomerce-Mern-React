@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { UserLoginContext } from './context/userLoginContext';
+import { UserLoginContext } from '../context/userLoginContext';
 import { Link } from 'react-router-dom';
+import { ordersApi } from '../constants/apiConstants';
+import {get} from '../helper/apiHelper';
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { userLoginCredential } = useContext(UserLoginContext);
-
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_base_Url}/order`, {
+        const response = await get(ordersApi, {
           params: userLoginCredential // Replace with actual user ID parameter
         });
         if (response.status === 204) {

@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { UserLoginContext } from "./context/userLoginContext";
-import { UpdateCartContext } from "./context/updatedCartContext";
+import { UserLoginContext } from "../context/userLoginContext";
+import { UpdateCartContext } from "../context/updatedCartContext";
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import Loading from "./Loading";
+import Loading from "../components/Loading";
+import { cartApi } from '../constants/apiConstants';
+import {put,get,remove} from '../helper/apiHelper';
 
 function CartSlider({ open, setOpen }) {
     const [cartItems, setCartItems] = useState([]);
@@ -20,7 +21,7 @@ function CartSlider({ open, setOpen }) {
     console.log(updateCart)
 
     const handleUpdateCart = () => {
-        axios.put(`${process.env.REACT_APP_base_Url}/cart`, updatedCartData, {
+        put(cartApi, updatedCartData, {
             params: userLoginCredential,
         }).then((d) => {
             setCartItems(d.data.cartData.items);
@@ -41,7 +42,7 @@ function CartSlider({ open, setOpen }) {
 
     useEffect(() => {
         const getCart = () => {
-            axios.get(`${process.env.REACT_APP_base_Url}/cart`, {
+            get(cartApi, {
                 params: userLoginCredential,
             }).then((d) => {
                 if (d.status === 204) {
@@ -73,7 +74,7 @@ function CartSlider({ open, setOpen }) {
     }, [updateCart, userLoginCredential]);
 
     const handleRemoveItem = (itemsId) => {
-        axios.delete(`${process.env.REACT_APP_base_Url}/cart`, {
+        remove(cartApi, {
             params: {
                 token: userLoginCredential.token,
                 id: userLoginCredential.id,

@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import PendingOrders from './pendingOrder';
-import PaymentMethod from './paymentMethod';
-import OrderDetails from './order';
-import { UserLoginContext } from './context/userLoginContext';
+import PendingOrders from '../components/pendingOrder';
+import PaymentMethod from '../components/paymentMethod';
+import OrderDetails from '../components/order';
+import { UserLoginContext } from '../context/userLoginContext';
+import {userApi, ordersApi} from '../constants/apiConstants';
+import {get} from '../helper/apiHelper';
+
 
 const OrderHistory = () => {
     const [orders, setOrders] = useState([]);
-
     const { userLoginCredential } = useContext(UserLoginContext);
     const [showPendingOrders, setShowPendingOrders] = useState(false);
     const [userDetails, setUserDetails] = useState(null);
@@ -18,7 +19,7 @@ const OrderHistory = () => {
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_base_Url}/user`, {
+                const response = await get(userApi, {
                     params: userLoginCredential // Replace with actual user ID parameter
                 });
                 setUserDetails(response.data);
@@ -32,7 +33,7 @@ const OrderHistory = () => {
 
         const fetchPreviousOrdersCount = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_base_Url}/order`, {
+                const response = await get(ordersApi, {
                     params: userLoginCredential // Replace with actual user ID parameter
                 });
                 if (response.status === 204) {
@@ -80,7 +81,7 @@ const OrderHistory = () => {
                     <div className="flex flex-col md:flex-row xl:flex-col justify-start items-stretch w-full space-y-6 md:space-y-0 md:space-x-6 lg:space-x-8 xl:space-x-0">
                         <div className="flex flex-col justify-start items-start flex-shrink-0 md:w-full">
                             <div className="flex justify-evenly w-full md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
-                                <img src={userDetails.avatarUrl || "https://i.ibb.co/5TSg7f6/Rectangle-18.png"} alt="avatar" />
+                                <img src="https://i.pinimg.com/236x/c7/58/7e/c7587eec8e58a3eb06f5931d51f6e436.jpg" alt="avatar" width="60px"/>
                                 <div className="flex justify-start items-start flex-col space-y-2 w-full">
                                     <p className="text-base font-semibold leading-4 text-left text-gray-800">{userDetails.firstName || 'Loading...'}</p>
                                     <p className="text-sm leading-5 text-gray-600">{previousOrdersCount} Previous Orders</p>

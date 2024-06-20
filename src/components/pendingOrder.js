@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserLoginContext } from './context/userLoginContext';
-import { PendingOrdersContext } from './context/pendingOrdersContext';
-import axios from 'axios';
-
+import { UserLoginContext } from '../context/userLoginContext';
+import { PendingOrdersContext } from '../context/pendingOrdersContext';
+import { cartApi } from '../constants/apiConstants';
+import {get} from '../helper/apiHelper';
 const PendingOrders = () => {
     const [updatedQuantities, setUpdatedQuantities] = useState({});
     const [isUpdated, setIsUpdated] = useState(false);
@@ -14,8 +14,7 @@ const PendingOrders = () => {
 
     useEffect(() => {
         const getCart = () => {
-            axios
-                .get(`${process.env.REACT_APP_base_Url}/cart`, {
+            get(cartApi, {
                     params: userLoginCredential,
                 })
                 .then((response) => {

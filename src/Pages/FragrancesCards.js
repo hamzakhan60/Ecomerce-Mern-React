@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
-import Card from '../Card';
-import kidsImg1 from '../Images/Woman/5.jpg'; // Update with your image paths
-import kidsImg2 from '../Images/Woman/4.jpg'; // Update with your image paths
+import Card from '../components/Card';
+import fragrancesImg1 from '../Images/Fragrance/3.jpg'; // Update with your image paths
+import fragrancesImg2 from '../Images/Fragrance/4.jpg'; // Update with your image paths
 
-const KidsCards = () => {
+const FragrancesCards = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [favorites, setFavorites] = useState([]);
 
   const cardData = [
     {
       id: 1, // Add unique id for each card
-      imageSrc: kidsImg1,
-      hoveredImageSrc: kidsImg2,
-      cardName: 'Kids Outfit 1',
-      category: 'Kids Fashion',
-      cutPrice: '$30',
-      originalPrice: '$40',
-      discount: '25'
+      imageSrc: fragrancesImg1,
+      hoveredImageSrc: fragrancesImg2,
+      cardName: 'Fragrance 1',
+      category: 'Fragrances',
+      cutPrice: '$50',
+      originalPrice: '$60',
+      discount: '20'
     },
     {
       id: 2, // Add unique id for each card
-      imageSrc: kidsImg2,
-      hoveredImageSrc: kidsImg1,
-      cardName: 'Kids Outfit 2',
-      category: 'Kids Fashion',
-      cutPrice: '$25',
-      originalPrice: '$35',
-      discount: '28'
+      imageSrc: fragrancesImg2,
+      hoveredImageSrc: fragrancesImg1,
+      cardName: 'Fragrance 2',
+      category: 'Fragrances',
+      cutPrice: '$45',
+      originalPrice: '$55',
+      discount: '18'
     },
     // Add more card data as needed
   ];
@@ -80,4 +80,4 @@ const KidsCards = () => {
   );
 };
 
-export default KidsCards;
+export default FragrancesCards;

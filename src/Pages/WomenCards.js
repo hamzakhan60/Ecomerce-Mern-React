@@ -1,23 +1,24 @@
 import React, { useState, useEffect,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
-import Card from '../Card';
+import Card from '../components/Card';
 import womenImg1 from '../Images/Woman/1.jpg'; // Update with your image paths
 import womenImg2 from '../Images/Woman/2.jpg'; // Update with your image paths
-import axios from 'axios';
 import {UserSearch} from "../context/userContext";
+import { womenCardApi } from '../constants/apiConstants';
+import {get} from '../helper/apiHelper'
 const WomenCards = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [womenData, setWomenData] = useState([]);
   const [products,setProducts]=useState([]);
   const {userSearch}=useContext(UserSearch);
-  const url = `${process.env.REACT_APP_base_Url}/collection/ForWomen`;
+  // const url = `${process.env.REACT_APP_base_Url}/collection/ForWomen`;
 
 
   useEffect(() => {
     const data = async () => {
-      const response = await axios.get(url);
+      const response = await get(womenCardApi);
       console.log(response.data);
       setWomenData(response.data);
       setProducts(response.data);

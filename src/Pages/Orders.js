@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserLoginContext } from "../context/userLoginContext";
+import { adminOrdersApi } from '../constants/apiConstants';
+import {get} from '../helper/apiHelper';
 
 const AdminOrderHistory = () => {
   const [usersOrders, setUsersOrders] = useState([]);
@@ -14,7 +15,7 @@ const AdminOrderHistory = () => {
    
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_base_Url}/admin/orders`,{params:userLoginCredential,
+        const response = await get(adminOrdersApi,{params:userLoginCredential,
       });
         if (response.status === 204) {
           alert("No orders found");

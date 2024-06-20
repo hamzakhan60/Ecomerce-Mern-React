@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
-import Card from '../Card';
-import axios from 'axios';
+import Card from '../components/Card';
 import { UserSearch } from "../context/userContext";
-import Loading from '../Loading';
+import Loading from '../components/Loading';
+import { mensCardApi } from '../constants/apiConstants';
+import {get} from '../helper/apiHelper';
 
 const MenCards = () => {
   const navigate = useNavigate();
@@ -13,22 +14,18 @@ const MenCards = () => {
   const { userSearch } = useContext(UserSearch);
   const [products, setProducts] = useState([]);
 
-  const url = `${process.env.REACT_APP_base_Url}/collection/ForMen`;
-  console.log("API URL:", url);
+  // const url = `${process.env.REACT_APP_base_Url}/collection/ForMen`;
+  // console.log("API URL:", url);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(url);
+        const response = await get(mensCardApi);
         console.log(response.data);
         setMensData(Array.isArray(response.data) ? response.data : []);
         setProducts(Array.isArray(response.data) ? response.data : []);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
     };
     fetchData();
-  }, [url]);
+  }, [mensCardApi]);
 
   useEffect(() => {
     if (userSearch) {

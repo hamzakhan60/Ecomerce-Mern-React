@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { PendingOrdersContext } from './context/pendingOrdersContext'; // Context for pending orders
-import { UserLoginContext } from './context/userLoginContext';
+import { PendingOrdersContext } from '../context/pendingOrdersContext'; // Context for pending orders
+import { UserLoginContext } from '../context/userLoginContext';
+import { ordersApi } from '../constants/apiConstants';
+import {post} from '../helper/apiHelper';
 const PaymentMethod = () => {
     const [paymentMethod, setPaymentMethod] = useState('card');
     const [email, setEmail] = useState('');
@@ -38,7 +39,7 @@ const PaymentMethod = () => {
 
         }
         try {
-            const response = await axios.post(`${process.env.REACT_APP_base_Url}/order`, body,{
+            const response = await post(ordersApi, body,{
                 params: userLoginCredential,
             });
 

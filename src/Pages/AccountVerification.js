@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import { UserLoginContext } from "../context/userLoginContext";
 import { useNavigate } from "react-router-dom";
+import {loginApi,userSignUpApi} from '../constants/apiConstants';
+import {get,post} from '../helper/apiHelper';
 
 const AccountVerification = () => {
   const [email, setEmail] = useState('');
@@ -34,15 +35,15 @@ const AccountVerification = () => {
       alert('Please enter both email and password.');
       return;
     }
-    const url = `${process.env.REACT_APP_base_Url}/login`;
-    console.log("API URL:", url);
+   // const url = `${process.env.REACT_APP_base_Url}/login`;
+   // console.log("API URL:", url);
     const queryParams = {
       email: email,
       password: password,
     };
     console.log(queryParams);
 
-    axios.get(url, { params: queryParams })
+    get(loginApi, { params: queryParams })
       .then((response) => {
         setuserLoginCredential(response.data);
         localStorage.setItem('userData', JSON.stringify(response.data));
@@ -63,23 +64,28 @@ const AccountVerification = () => {
       alert('Please fill in all the fields.');
       return;
     }
+    const data ={
+      
+        email: email,
+        password: password,
+        firstName: firstName,
+        middleName: middleName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        dateOfBirth: dateOfBirth,
+        address: {
+          streetName: streetName,
+          city: cityName,
+          country: countryName,
+          pinCode: pinCode,
+        }
+      
+    }
 
-    axios.post(`${process.env.REACT_APP_base_Url}/signUp`, {
-      email: email,
-      password: password,
-      firstName: firstName,
-      middleName: middleName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-      dateOfBirth: dateOfBirth,
-      address: {
-        streetName: streetName,
-        city: cityName,
-        country: countryName,
-        pinCode: pinCode,
-      }
-    }).then((response) => {
+    post(userSignUpApi,data
+).then((response) => {
       alert(response.data);
+      console.log(response.data);
       setIsLogin(true);
     }).catch(err => {
       alert(err.response.data);

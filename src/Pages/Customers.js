@@ -1,8 +1,9 @@
 import React, { useEffect, useState,useContext } from 'react';
 import { FaTrash, FaPlus, FaSave, FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { UserLoginContext } from "../context/userLoginContext";
+import { adminCustomersApi } from '../constants/apiConstants';
+import {get} from '../helper/apiHelper';
 
 
 const Customer = () => {
@@ -15,7 +16,7 @@ const Customer = () => {
   useEffect(() => {
     //admin/customers
     // Fetch customer data from the API
-    axios.get(`${process.env.REACT_APP_base_Url}/admin/customers`, {params:userLoginCredential,
+    get(adminCustomersApi, {params:userLoginCredential,
   })
         .then(response => {
             setCustomers(response.data);

@@ -1,34 +1,35 @@
+// SalesCards.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
-import Card from '../Card';
-import newArrivalImg1 from '../Images/Woman/1.jpg'; // Update with your image paths
-import newArrivalImg2 from '../Images/Woman/2.jpg'; // Update with your image paths
+import Card from '../components/Card';
+import saleImg1 from '../Images/Woman/1.jpg'; // Update with your image paths
+import saleImg2 from '../Images/Woman/2.jpg'; // Update with your image paths
 
-const NewArrivalCards = () => {
+const SalesCards = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [favorites, setFavorites] = useState([]);
 
   const cardData = [
     {
       id: 1, // Add unique id for each card
-      imageSrc: newArrivalImg1,
-      hoveredImageSrc: newArrivalImg2,
-      cardName: 'New Arrival 1',
-      category: 'New Arrivals',
-      cutPrice: '$70',
-      originalPrice: '$90',
-      discount: '22'
+      imageSrc: saleImg1,
+      hoveredImageSrc: saleImg2,
+      cardName: 'Sale Item 1',
+      category: 'Sales',
+      cutPrice: '$40',
+      originalPrice: '$50',
+      discount: '20'
     },
     {
       id: 2, // Add unique id for each card
-      imageSrc: newArrivalImg1,
-      hoveredImageSrc: newArrivalImg2,
-      cardName: 'New Arrival 2',
-      category: 'New Arrivals',
-      cutPrice: '$80',
-      originalPrice: '$100',
-      discount: '20'
+      imageSrc: saleImg1,
+      hoveredImageSrc: saleImg2,
+      cardName: 'Sale Item 2',
+      category: 'Sales',
+      cutPrice: '$35',
+      originalPrice: '$45',
+      discount: '22'
     },
     // Add more card data as needed
   ];
@@ -76,4 +77,4 @@ const NewArrivalCards = () => {
   );
 };
 
-export default NewArrivalCards;
+export default SalesCards;

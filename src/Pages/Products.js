@@ -1,9 +1,10 @@
 import React, { useState, useEffect,useContext } from 'react';
-import axios from 'axios';
 import { FaTrash, FaPlus, FaSave, FaArrowLeft } from 'react-icons/fa';
-import Modal from './Modal';
+import Modal from '../components/Modal';
 import { Link } from 'react-router-dom';
 import { UserLoginContext } from "../context/userLoginContext";
+import { adminProductApi } from '../constants/apiConstants';
+import {get,remove,put,post} from '../helper/apiHelper';
 
 const Products = () => {
   const [products, setProducts] = useState(null);
@@ -31,7 +32,7 @@ const Products = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${process.env.REACT_APP_base_Url}/admin/products`, {params:userLoginCredential,
+        const response = await get(adminProductApi, {params:userLoginCredential,
       });
         setProducts(response.data);
         console.log(response.data);
@@ -52,7 +53,7 @@ const Products = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`${process.env.REACT_APP_base_Url}/admin/products/${id}`, {params:userLoginCredential,
+        await remove(`${adminProductApi}/${id}`, {params:userLoginCredential,
       });
         setProducts(products.filter((product) => product._id !== id));
       } catch (error) {
@@ -73,7 +74,7 @@ const Products = () => {
     if (window.confirm('Do you want to save changes to this product?')) {
       const product = products.find(product => product._id === id);
       try {
-        await axios.put(`${process.env.REACT_APP_base_Url}/admin/products/${id}`,product,{params:userLoginCredential,
+        await put(`${adminProductApi}/${id}`,product,{params:userLoginCredential,
       });
         console.log('Changes saved for:', product);
       } catch (error) {
@@ -106,7 +107,7 @@ const Products = () => {
   const handleSaveNewProduct = async () => {
     console.log(newProduct);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_base_Url}/admin/products`,  newProduct,{params:userLoginCredential,
+      const response = await post(adminProductApi,  newProduct,{params:userLoginCredential,
     });
       const savedProduct = response.data;
       setProducts([...products, savedProduct]);

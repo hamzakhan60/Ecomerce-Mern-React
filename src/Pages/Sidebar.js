@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserLoginContext } from "../context/userLoginContext";
+import { adminHomeApi } from "../constants/apiConstants";
+import {get} from '../helper/apiHelper';
 
 import {
   FaHome,
@@ -49,7 +50,7 @@ const Sidebar = () => {
   useEffect(() => {
     const request = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_base_Url}/admin/home`, {
+        const response = await get(adminHomeApi, {
           params: userLoginCredential,
         });
         console.log(response.data);
