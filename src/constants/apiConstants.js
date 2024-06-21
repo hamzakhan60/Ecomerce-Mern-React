@@ -1,4 +1,4 @@
-export const REACT_APP_base_Url="http://localhost:8000"
+export const REACT_APP_base_Url=process.env.REACT_APP_base_Url;
 export const loginApi=`/login`;
 export const mensCardApi=`/collection/ForMen`;
 export const womenCardApi=`/collection/ForWomen`;
