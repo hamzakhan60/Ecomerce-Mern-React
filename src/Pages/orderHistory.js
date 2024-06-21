@@ -11,7 +11,7 @@ import {get} from '../helper/apiHelper';
 const OrderHistory = () => {
     const [orders, setOrders] = useState([]);
     const { userLoginCredential } = useContext(UserLoginContext);
-    const [showPendingOrders, setShowPendingOrders] = useState(false);
+    const [showPendingOrders, setShowPendingOrders] = useState(true);
     const [userDetails, setUserDetails] = useState(null);
     const [previousOrdersCount, setPreviousOrdersCount] = useState(0);
     const navigate = useNavigate();
